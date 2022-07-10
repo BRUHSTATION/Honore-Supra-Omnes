@@ -15,14 +15,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private Rigidbody2D rigidbody;
+    [SerializeField] private SpriteRenderer spriterenderer;
     [SerializeField] private TrailRenderer tr;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        rigidbody = GetComponent<Rigidbody2D>();
+        spriterenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -33,8 +33,8 @@ public class PlayerController : MonoBehaviour
         float movement = Input.GetAxis("Horizontal");
         transform.position += new Vector3(movement, 0, 0) * speed * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.05f)
-            rb.AddForce(new Vector2(0, jumpforce), ForceMode2D.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rigidbody.velocity.y) < 0.05f)
+            rigidbody.AddForce(new Vector2(0, jumpforce), ForceMode2D.Impulse);
 
         //Dash Input
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
@@ -63,13 +63,13 @@ public class PlayerController : MonoBehaviour
         //Dash
         canDash = false;
         isDashing = true;
-        float originalGravity = rb.gravityScale;
-        rb.gravityScale = 0f;
-        rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        float originalGravity = rigidbody.gravityScale;
+        rigidbody.gravityScale = 0f;
+        rigidbody.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         tr.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
-        rb.gravityScale = originalGravity;
+        rigidbody.gravityScale = originalGravity;
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
