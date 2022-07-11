@@ -2,29 +2,32 @@ using UnityEngine;
 
 public class PlayerPosition : MonoBehaviour
 {
-    private bool _isGrounded;
-    public LayerMask Ground;
-    public Transform GroundCheck;
+    [SerializeField] private bool _isGrounded;
+    [SerializeField] private LayerMask _ground;
+    [SerializeField] private CircleCollider2D _groundCheck;
+    private Transform _groundCheckPosition;
     private float _groundCheckRadius;
-    private PlayerMovement _movement;
+    private PlayerMovement _playerMovement;
 
     private void Start()
     {
-        _groundCheckRadius = GroundCheck.GetComponent<CircleCollider2D>().radius;
-        _movement = GetComponent<PlayerMovement>();
+        _groundCheckRadius = _groundCheck.radius;
+        _groundCheckPosition = _groundCheck.gameObject.transform;
+        _playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void Update()
     {
         CheckingGround();
+
         if (_isGrounded)
         {
-            _movement.ResetJumpCount();
+            _playerMovement.ResetJumpCount();
         }
     }
 
-    void CheckingGround()
+    private void CheckingGround()
     {
-        _isGrounded = Physics2D.OverlapCircle(GroundCheck.position, _groundCheckRadius, Ground);
+        _isGrounded = Physics2D.OverlapCircle(_groundCheckPosition.position, _groundCheckRadius, _ground);
     }
 }
