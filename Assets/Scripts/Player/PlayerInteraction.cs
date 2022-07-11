@@ -1,14 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    private PlayerHealth _playerHealth;
+
+    private void Start()
+    {
+        _playerHealth = GetComponent<PlayerHealth>();
+    }
     public void TakeDamage(int damage)
     {
-        gameObject.GetComponent<Health>().health -= damage;
-        if (gameObject.GetComponent<Health>().health <= 0)
+        _playerHealth.health -= damage;
+        if (_playerHealth.health <= 0)
         {
             Death();
         }
