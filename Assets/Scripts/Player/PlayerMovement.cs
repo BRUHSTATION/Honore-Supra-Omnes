@@ -5,7 +5,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _jumpForce = 5f; 
     [SerializeField] private int _maxJumpCount;
-
     private Rigidbody2D _rigidBody;
     private float _movement;
     private int _jumpCount;

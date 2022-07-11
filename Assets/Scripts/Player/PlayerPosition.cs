@@ -20,14 +20,8 @@ public class PlayerPosition : MonoBehaviour
     {
         CheckingGround();
 
-        if (_isGrounded)
-        {
-            _playerMovement.ResetJumpCount();
-        }
+        if (_isGrounded) _playerMovement.ResetJumpCount();
     }
 
-    private void CheckingGround()
-    {
-        _isGrounded = Physics2D.OverlapCircle(_groundCheckPosition.position, _groundCheckRadius, _ground);
-    }
+    private void CheckingGround() => _isGrounded = Physics2D.OverlapCircle(_groundCheckPosition.position, _groundCheckRadius);
 }
