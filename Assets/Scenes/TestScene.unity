@@ -620,8 +620,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666755856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5983, y: -1.8031, z: 0}
-  m_LocalScale: {x: 0.4456704, y: 0.4246144, z: 0.448}
+  m_LocalPosition: {x: 5.21, y: -1.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -664,7 +664,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10, y: 10}
+    oldSize: {x: 5, y: 5}
     newSize: {x: 10, y: 10}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -700,9 +700,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.9391934, y: 0.7915097}
+  m_Offset: {x: -1.62269, y: 0.024641514}
   serializedVersion: 2
-  m_Radius: 4.9208474
+  m_Radius: 2.2307262
 --- !u!1 &786325756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,6 +1265,7 @@ GameObject:
   - component: {fileID: 1817015173}
   - component: {fileID: 1817015172}
   - component: {fileID: 1817015171}
+  - component: {fileID: 1817015180}
   - component: {fileID: 1817015176}
   - component: {fileID: 1817015177}
   - component: {fileID: 1817015178}
@@ -1290,7 +1291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f5da1d2e846b543be4fc370482ab2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 1
+  _movementAcceleration: 350
+  _maxSpeed: 3
+  _groundLinearDrag: 10
 --- !u!61 &1817015171
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1333,7 +1336,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 00d91ba5419d51b43bd412d9de4c18f5, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -1418,9 +1421,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394896f88fdfb834f9f462b9ac6e96c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 5
-  _maxJumpCount: 2
-  _jumpCheckDelay: 0.1
+  _extraJumps: 2
+  _jumpForce: 10.5
+  _airLinearDrag: 3.2
+  _fallMultiplier: 5.7
+  _lowJumpFallMultiplier: 2.5
 --- !u!114 &1817015176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,18 +1488,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2a2d221ee61f14f9a9be2d85b5f7f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ground:
+  _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _wall:
-    serializedVersion: 2
-    m_Bits: 64
-  _groundCheckStartPosition: {fileID: 1424038841}
-  _wallCheckStartPosition: {fileID: 2046603516}
-  _jumpSizeCheck: 0.2
-  _wallSizeCheck: 0.1
-  _isGrounded: 0
-  _isWalled: 0
+  _jumpSizeCheck: 0.95
+  _jumpSizeCheckOffset: -0.35
+--- !u!114 &1817015180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817015169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef29aed9cd772ca44a0c58940fe0315c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1880878711
 GameObject:
   m_ObjectHideFlags: 0

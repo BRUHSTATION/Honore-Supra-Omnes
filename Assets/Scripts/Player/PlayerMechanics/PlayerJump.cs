@@ -1,50 +1,74 @@
 using UnityEngine;
-using System.Collections;
 
 public class PlayerJump : MonoBehaviour
 {
-    [SerializeField] private float _jumpForce = 5f;
-    [SerializeField] private int _maxJumpCount;
-    [SerializeField] private float _jumpCheckDelay;
+    [SerializeField] private int _extraJumps;
 
-    private PlayerGroundWallCheck _playerGroundCheck;
+    [Header("Phisics variables")]
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _airLinearDrag;
+    [SerializeField] private float _fallMultiplier;
+    [SerializeField] private float _lowJumpFallMultiplier;
+
+    private int _extraJumpsValue;
+    private PlayerGroundCheck _playerGroundCheck;
+    private PlayerMovement _playerMovement;
     private Rigidbody2D _rigidBody;
-    private int _jumpCount;
+
+    private bool _onGround => _playerGroundCheck.isGrounded;
+    private bool _canJump => Input.GetKeyDown(KeyCode.Space) && (_onGround || _extraJumpsValue > 0);
     private bool _isJumped;
+    public bool isJumped => _isJumped;
 
     private void Start()
     {
-        _jumpCount = _maxJumpCount;
         _rigidBody = GetComponent<Rigidbody2D>();
-        _playerGroundCheck = GetComponent<PlayerGroundWallCheck>();
+        _playerGroundCheck = GetComponent<PlayerGroundCheck>();
+        _playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _jumpCount > 0) Jump();
+        if (_canJump) Jump();
 
-        if (_playerGroundCheck.isGrounded && _isJumped) ResetJumpsHandler();
-    }
-
-    private void ResetJumpsHandler() => StartCoroutine(ResetJumpsWhileGrounded());
-
-    private IEnumerator ResetJumpsWhileGrounded()
-    {
-        yield return new WaitForSeconds(_jumpCheckDelay);
-
-        if (_playerGroundCheck.isGrounded)
+        if (_onGround)
         {
-            ResetJumpCount();
+            _extraJumpsValue = _extraJumps;
+            _playerMovement.ApplyGroundLinearDrag();
             _isJumped = false;
+        }
+        else
+        {
+            ApplyLinearAirDrag();
+            FallMultiplier();
         }
     }
 
     private void Jump()
     {
-        _jumpCount--;
-        _rigidBody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+        if (!_onGround) _extraJumpsValue--;
+
+        _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 0);
+        _rigidBody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+
         _isJumped = true;
     }
 
-    public void ResetJumpCount() => _jumpCount = _maxJumpCount;
+    private void ApplyLinearAirDrag() => _rigidBody.drag = _airLinearDrag;
+
+    private void FallMultiplier()
+    {
+        if (_rigidBody.velocity.y < 0)
+        {
+            _rigidBody.gravityScale = _fallMultiplier;
+        }
+        else if (_rigidBody.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        {
+            _rigidBody.gravityScale = _lowJumpFallMultiplier;
+        }
+        else
+        {
+            _rigidBody.gravityScale = 1f;
+        }
+    }
 }
