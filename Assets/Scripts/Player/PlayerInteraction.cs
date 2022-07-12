@@ -9,6 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         _playerHealth = GetComponent<PlayerHealth>();
     }
+
     public void TakeDamage(int damage)
     {
         _playerHealth.health -= damage;
