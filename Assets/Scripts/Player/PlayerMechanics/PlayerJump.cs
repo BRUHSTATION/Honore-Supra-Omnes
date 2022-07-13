@@ -6,8 +6,11 @@ public class PlayerJump : MonoBehaviour
 
     [Header("Phisics variables")]
     [SerializeField] private float _jumpForce;
+    [Tooltip("Сила, которая действует во время набора высоты")]
     [SerializeField] private float _airLinearDrag;
+    [Tooltip("Скорость падения")]
     [SerializeField] private float _fallMultiplier;
+    [Tooltip("Скорость падения при нажатом Space")]
     [SerializeField] private float _lowJumpFallMultiplier;
 
     private int _extraJumpsValue;
@@ -17,8 +20,6 @@ public class PlayerJump : MonoBehaviour
 
     private bool _onGround => _playerGroundCheck.isGrounded;
     private bool _canJump => Input.GetKeyDown(KeyCode.Space) && (_onGround || _extraJumpsValue > 0);
-    private bool _isJumped;
-    public bool isJumped => _isJumped;
 
     private void Start()
     {
@@ -35,7 +36,6 @@ public class PlayerJump : MonoBehaviour
         {
             _extraJumpsValue = _extraJumps;
             _playerMovement.ApplyGroundLinearDrag();
-            _isJumped = false;
         }
         else
         {
@@ -50,8 +50,6 @@ public class PlayerJump : MonoBehaviour
 
         _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, 0);
         _rigidBody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-
-        _isJumped = true;
     }
 
     private void ApplyLinearAirDrag() => _rigidBody.drag = _airLinearDrag;

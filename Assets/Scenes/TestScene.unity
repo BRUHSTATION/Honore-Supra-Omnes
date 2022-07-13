@@ -1266,9 +1266,6 @@ GameObject:
   - component: {fileID: 1817015172}
   - component: {fileID: 1817015171}
   - component: {fileID: 1817015180}
-  - component: {fileID: 1817015176}
-  - component: {fileID: 1817015177}
-  - component: {fileID: 1817015178}
   - component: {fileID: 1817015170}
   - component: {fileID: 1817015179}
   - component: {fileID: 1817015175}
@@ -1291,8 +1288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f5da1d2e846b543be4fc370482ab2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementAcceleration: 350
-  _maxSpeed: 3
+  _movementAcceleration: 500
+  _maxSpeed: 6
   _groundLinearDrag: 10
 --- !u!61 &1817015171
 BoxCollider2D:
@@ -1421,61 +1418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394896f88fdfb834f9f462b9ac6e96c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _extraJumps: 2
-  _jumpForce: 10.5
-  _airLinearDrag: 3.2
-  _fallMultiplier: 5.7
-  _lowJumpFallMultiplier: 2.5
---- !u!114 &1817015176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817015169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29f199df3e28b7d42ad019134de575e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1817015177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817015169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63add190ea883a741969bd85e21736df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 3
-  numOfHearts: 3
-  hearts:
-  - {fileID: 1742429988}
-  - {fileID: 1513272979}
-  - {fileID: 513830053}
-  - {fileID: 87529974}
-  - {fileID: 455770087}
-  fullHeart: {fileID: 21300000, guid: 5bb5999cba9a99f40bbf5ab4150d28fc, type: 3}
-  emptyHeart: {fileID: 21300000, guid: 69d47fb87f1c79f44a48eeff574f68f9, type: 3}
---- !u!114 &1817015178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817015169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4336dbeac429a3e409222e4a66e51c1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dashingPower: 24
-  _dashingTime: 0.2
-  _dashingCooldown: 1
-  _trailRenderer: {fileID: 941562813}
+  _extraJumps: 1
+  _jumpForce: 25
+  _airLinearDrag: 10
+  _fallMultiplier: 10
+  _lowJumpFallMultiplier: 10
 --- !u!114 &1817015179
 MonoBehaviour:
   m_ObjectHideFlags: 0

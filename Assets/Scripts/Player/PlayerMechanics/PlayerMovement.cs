@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _groundLinearDrag;
 
-    private PlayerJump _playerJump;
+    private PlayerGroundCheck _playerGroundCheck;
     private Rigidbody2D _rigidBody;
     private float _movement;
 
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _playerJump = GetComponent<PlayerJump>();
+        _playerGroundCheck = GetComponent<PlayerGroundCheck>();
         _rigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_playerJump.isJumped)
+        if (_playerGroundCheck.isGrounded)
         {
             Move();
             ApplyGroundLinearDrag();
@@ -33,10 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (!_playerJump.isJumped)
-        {
-            _rigidBody.AddForce(new Vector2(_movement, 0) * _movementAcceleration * Time.deltaTime);
-        }
+        _rigidBody.AddForce(new Vector2(_movement, 0) * _movementAcceleration * Time.deltaTime);
 
         if (Mathf.Abs(_rigidBody.velocity.x) > _maxSpeed)
         {
